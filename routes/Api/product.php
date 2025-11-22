@@ -1,15 +1,20 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Api\ProductController;
 
 
 
 
-Route::middleware('jwt')->prefix('products')->group(function () {
-    Route::get('/', [ProductController::class, 'index']);
-    Route::post('/', [ProductController::class, 'store']);
-    Route::put('/{id}', [ProductController::class, 'update']);
-    Route::delete('/{id}', [ProductController::class, 'destroy']);
+Route::middleware('jwt')
+->prefix('products')
+->name('products.')
+->controller(ProductController::class)
+->group(function () {
+
+    Route::get('/'        ,  'index')->name('index');
+    Route::post('/'       ,  'store')->name('store');
+    Route::put('/{id}'    ,  'update')->name('update');
+    Route::delete('/{id}' ,  'destroy')->name('destroy');
 });
 

@@ -5,8 +5,13 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::middleware('jwt')->prefix('orders')->group(function () {
+Route::middleware('jwt')
+->prefix('orders')
+->name('orders.')
+->controller(OrderController::class)
+->group(function () {
 
- Route::post('/', [OrderController::class, 'store']);
+ Route::get( '/',  'index')->name('index');
+ Route::post('/', 'store')->name('store');
 
 });

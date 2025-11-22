@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\DashboardController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -9,18 +10,21 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-Route::get('/', function () {
-    return response()->json(['message' => 'Hello world!']);
-});
+Route::controller(AuthController::class)->prefix('auth')->group(function () {
 
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/register', 'register');
+Route::post('/login',  'login');
 
 Route::middleware('jwt')->group(function () {
-    Route::get('/user', [AuthController::class, 'getUser']);
-    Route::put('/user', [AuthController::class, 'updateUser']);
-    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/me', 'getUser');
+    Route::put('/me', 'updateUser');
+    Route::post('/logout','logout');
 });
+});
+
+Route::middleware('jwt')->get('/dashboard', [DashboardController::class, 'index']);
+
+
 
 
 
