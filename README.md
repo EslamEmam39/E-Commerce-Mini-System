@@ -9,6 +9,23 @@ This is a Laravel API project for a simple e-commerce system, including:
 - API standardized responses using `ApiResponse` helper
 - Resources for structured JSON responses
 
+- Backend Deliverables (Laravel Project)
+   Project Structure
+
+ Organized Laravel folders:
+
+ app/Models → كل الموديلات.
+
+ app/Http/Controllers → كل الكنترولرز.
+
+ app/Http/Requests → للتحقق من البيانات (Validation).
+
+ routes/api.php → كل الـ API routes.
+
+ database/migrations → كل الـ migrations.
+
+ database/seeders → بيانات تجريبية (اختياري).
+
 ---
 
 ##  Setup
@@ -98,100 +115,20 @@ Response:
   "token": "JWT_TOKEN_HERE"
 }
 
- Products
-List Products
+ 2️⃣ API Endpoints   (Authenticated)
+ 
+ | Method | Endpoint       | Description                  |
+| ------ | -------------- | ---------------------------- |
+| GET    | /dashboard     | Total products, total orders |
+| GET    | /products      | List products (paginated)    |
+| POST   | /products      | Create product               |
+| PUT    | /products/{id} | Update product               |
+| DELETE | /products/{id} | Delete product               |
+| GET    | /orders        | List orders                  |
+| GET    | /orders/{id}   | Show order details           |
+| GET    | /auth/me       | Get current user profile     |
+| PUT    | /auth/me       | Update profile & password    |
 
-GET /api/products  (Authenticated)
-
-Response: (paginated)
-{
-  "status": true,
-  "message": "success",
-  "data": {
-    "products": [
-      {
-        "id": 1,
-        "name": "Laptop",
-        "description": "High performance laptop",
-        "price": "2500.00",
-        "stock": 10,
-        "status": "in_stock",
-        "created_at": "2025-11-22T12:00:00.000000Z",
-        "updated_at": "2025-11-22T12:00:00.000000Z"
-      }
-    ],
-    "meta": {
-      "current_page": 1,
-      "last_page": 10,
-      "per_page": 10,
-      "total": 100
-    },
-    "links": {
-      "next_page_url": "...",
-      "prev_page_url": null
-    }
-  }
-}
-
-Create Product
-
-POST /api/products (Authenticated)
-
-Request:
-{
-  "name": "Laptop",
-  "description": "High performance laptop",
-  "price": 2500,
-  "stock": 10
-}
-
-Response :
-{
-  "status": true,
-  "message": "Product created successfully",
-  "data": {
-    "id": 1,
-    "name": "Laptop",
-    "description": "High performance laptop",
-    "price": "2500.00",
-    "stock": 10,
-    "status": "in_stock"
-  }
-}
-
-Cart & Orders
-Create Order
-
-POST /api/orders (Authenticated)
-
-Request:
-{
-  "address": "123 Main Street, City",
-  "phone": "+1234567890"
-}
-Response:
-{
-  "status": true,
-  "message": "Order created successfully",
-  "data": {
-    "order_number": 5,
-    "total": 320.5,
-    "items": [
-      {
-        "name": "Product 1",
-        "quantity": 2,
-        "price": 100.25,
-        "subtotal": 200.5
-      },
-      {
-        "name": "Product 2",
-        "quantity": 1,
-        "price": 120,
-        "subtotal": 120
-      }
-    ]
-  }
-}
 Notes
 All API responses are standardized using ApiResponse helper.
 
@@ -202,63 +139,15 @@ Use Authorization: Bearer JWT_TOKEN for protected routes.
 Products, Orders, and Users have Resource classes for consistent JSON output.
 
 Simple DB diagram
+ Database
 
-Users
------
-id (PK)
-name
-email
-password
-created_at
-updated_at
+ERD
+users → id, name, email, password, role
+products → id, name, price, stock, status
+cart_items -> id , user_id , product_id ,quantity 
+orders → id, order_number, total, address, phone
+order_items → order_id, product_id, quantity, subtotal
+ timestamps (created_at, updated_at)
 
-Addresses
----------
-id (PK)
-user_id (FK -> Users.id)
-address
-phone
-created_at
-updated_at
-
-Products
---------
-id (PK)
-name
-description
-price
-stock
-status
-created_at
-updated_at
-
-CartItems
----------
-id (PK)
-user_id (FK -> Users.id)
-product_id (FK -> Products.id)
-quantity
-created_at
-updated_at
-
-Orders
-------
-id (PK)
-user_id (FK -> Users.id)
-address_id (FK -> Addresses.id)
-total
-created_at
-updated_at
-
-OrderItems
-----------
-id (PK)
-order_id (FK -> Orders.id)
-product_id (FK -> Products.id)
-quantity
-price
-subtotal
-created_at
-updated_at
-
+Seeder: لو تحب تبعت بيانات تجريبية للـ products و orders.
 
