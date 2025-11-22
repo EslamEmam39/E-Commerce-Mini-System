@@ -201,3 +201,64 @@ Use Authorization: Bearer JWT_TOKEN for protected routes.
 
 Products, Orders, and Users have Resource classes for consistent JSON output.
 
+Simple DB diagram
+
+Users
+-----
+id (PK)
+name
+email
+password
+created_at
+updated_at
+
+Addresses
+---------
+id (PK)
+user_id (FK -> Users.id)
+address
+phone
+created_at
+updated_at
+
+Products
+--------
+id (PK)
+name
+description
+price
+stock
+status
+created_at
+updated_at
+
+CartItems
+---------
+id (PK)
+user_id (FK -> Users.id)
+product_id (FK -> Products.id)
+quantity
+created_at
+updated_at
+
+Orders
+------
+id (PK)
+user_id (FK -> Users.id)
+address_id (FK -> Addresses.id)
+total
+created_at
+updated_at
+
+OrderItems
+----------
+id (PK)
+order_id (FK -> Orders.id)
+product_id (FK -> Products.id)
+quantity
+price
+subtotal
+created_at
+updated_at
+
+
