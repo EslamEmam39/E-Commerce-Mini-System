@@ -14,15 +14,25 @@ This is a Laravel API project for a simple e-commerce system, including:
 
  Organized Laravel folders:
 
- app/Models → كل الموديلات.
+ app/Models
+ 
+ app/Service
+ 
+ app/Helpers
+ 
+ app/Http/Controllers
+ 
+ app/Http/Middleware
+ 
+ app/Http/Resources
+ 
+ 
+ app/Http/Requests → (Validation).
 
- app/Http/Controllers → كل الكنترولرز.
+ routes/api.php →  API routes.
+ 
 
- app/Http/Requests → للتحقق من البيانات (Validation).
-
- routes/api.php → كل الـ API routes.
-
- database/migrations → كل الـ migrations.
+ database/migrations → migrations.
 
  database/seeders → بيانات تجريبية (اختياري).
 
