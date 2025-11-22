@@ -52,4 +52,31 @@ class OrderController extends Controller
             return ApiResponse::error([], 'Something went wrong: ' . $e->getMessage(), 500);
         }
       }
+
+
+      public function show($id)
+{
+    $order = Order::with('items.product')->findOrFail($id);
+
+    return response()->json([
+        'status' => true,
+        'data' => [
+            'id' => $order->id,
+            'order_number' => $order->id,
+            'total' => $order->total,
+            'address' => $order->address->address ?? '',
+            'phone' => $order->address->phone ?? '',
+            'items' => $order->items->map(function($item) {
+                return [
+                    'id' => $item->id,
+                    'name' => $item->product->name,
+                    'quantity' => $item->quantity,
+                    'price' => $item->price,
+                    'subtotal' => $item->subtotal
+                ];
+            })
+        ]
+    ]);
+}
+
 }

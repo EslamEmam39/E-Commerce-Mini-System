@@ -13,5 +13,6 @@ Route::middleware('jwt')
 
  Route::get( '/',  'index')->name('index');
  Route::post('/', 'store')->name('store');
+ Route::get('/{id}', 'show')->name('show');
 
 });

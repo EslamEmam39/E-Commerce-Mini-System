@@ -22,7 +22,7 @@ class RegisterRequset extends FormRequest
     public function rules(): array
     {
         return [
-            
+
          'name' => 'required|string|min:3|max:50',
         'email' => 'required|email|unique:users,email',
         'password' => 'required|string|min:6|confirmed',
@@ -35,16 +35,17 @@ class RegisterRequset extends FormRequest
     public function messages()
     {
        return [
-          'name.required' => 'يجب إدخال الاسم',
-        'name.min' => 'الاسم يجب ألا يقل عن 3 حروف',
+            'name.required' => 'Name is required',
+        'name.min' => 'Name must be at least 3 characters',
 
-        'email.required' => 'يجب إدخال البريد الإلكتروني',
-        'email.email' => 'صيغة البريد الإلكتروني غير صحيحة',
-        'email.unique' => 'البريد الإلكتروني مستخدم بالفعل',
+        'email.required' => 'Email is required',
+        'email.email' => 'Invalid email format',
+        'email.unique' => 'Email is already taken',
 
-        'password.required' => 'يجب إدخال كلمة المرور',
-        'password.min' => 'كلمة المرور يجب ألا تقل عن 6 حروف',
-        'password.confirmed' => 'كلمة المرور غير متطابقة',
+        'password.required' => 'Password is required',
+        'password.min' => 'Password must be at least 6 characters',
+        'password.confirmed' => 'Password confirmation does not match',
+
        ] ;
     }
 }
